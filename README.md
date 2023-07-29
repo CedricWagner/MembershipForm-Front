@@ -1,29 +1,21 @@
-# template-vite-react-ts-tailwind-v3
+# Membership Form -- Back
 
-- **template of:** vite + react + typescript
-- **tailwindcss:** v3.x
+Membership Form is a free open source application meant to provide a tool for associations to store and export new membership.
 
-## Started
-```bash
-yarn
-# or `npm install`
-```
+This repository is concerning the frontend only. For backend, see [the dedicated repo](https://github.com/CedricWagner/MembershipForm-Back)
 
----
-## Develop
-```bash
-yarn dev
-# or `npm run dev`
-```
+## Features
 
----
-## Build
-```bash
-yarn build
-# or `npm run build`
-```
+- (x) Login screen
+- (x) Application form
+- (x) Display members data  
 
----
-<p align="center">
-<img src="./powered-by-vitawind-bright.png">
-</p>
+## Getting started
+
+### Prerequisites
+
+- Install npm (8+) & node (16+)
+
+### Setup dev env
+- Setup composer `npm install`
+- Run dev env `npm run dev`
