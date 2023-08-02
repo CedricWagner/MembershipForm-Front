@@ -11,8 +11,11 @@ const MembershipPage: FC<MembershipPageProps> = () => {
   };
 
   return (
-    <div className="container mx-auto max-w-xl" data-testid="MembershipPage">
-      <h1 className="my-4 text-xl">
+    <div
+      className="container mx-auto max-w-xl p-4"
+      data-testid="MembershipPage"
+    >
+      <h1 className="my-4 text-2xl font-bold">
         Formulaire d'adhésion à la maison citoyenne
       </h1>
       <MembershipForm onSubmit={onSubmit} />

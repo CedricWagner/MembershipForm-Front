@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import MembershipForm from "./MembershipForm";
+import MembershipForm, { FormData } from "./MembershipForm";
 import { vi } from "vitest";
 
 const onSubmit = vi.fn().mockImplementation(() => {});
@@ -37,9 +37,9 @@ describe("<MembershipForm />", () => {
   });
 
   it("should populate the form data on submit", async () => {
-    let data: FormData;
-    function mockOnSumbit(_data: FormData) {
-      data = _data;
+    let submittedData: FormData;
+    function mockOnSumbit(data: FormData) {
+      submittedData = data;
     }
 
     render(<MembershipForm onSubmit={mockOnSumbit} />);
@@ -83,7 +83,7 @@ describe("<MembershipForm />", () => {
     fireEvent.submit(screen.getByRole("button"));
 
     await waitFor(() =>
-      expect(data).toEqual({
+      expect(submittedData).toEqual({
         amount: "2.50",
         email: "test@test.fr",
         firstname: "MyFirstname",
