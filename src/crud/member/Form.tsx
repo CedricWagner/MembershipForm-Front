@@ -3,8 +3,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Field from "../Field";
 
 import TResource from "./type";
+import PaymentMethodRessource from "../paymentmethod/type";
 import { SubmissionError, TError } from "../../utils/types";
-import { amountToString } from "../../utils/transformers";
+import { amountToDecimal, amountToString } from "../../utils/transformers";
+import { useRetrieve } from "../../hooks";
+import { PagedCollection } from "../../interfaces/Collection";
 
 interface FormProps {
   onSubmit: (item: Partial<TResource>) => any;
@@ -18,6 +21,7 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
     register,
     setError,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<TResource>({
     defaultValues: initialValues
@@ -26,7 +30,17 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
         }
       : undefined,
   });
-  console.log(initialValues);
+
+  // retrieve payment methods
+  const {
+    retrieved: paymentMethodsRetrieved,
+    loading: paymentMethodsLoading,
+    error: paymentMethodsError,
+  } = useRetrieve<PagedCollection<PaymentMethodRessource>>("payment_methods");
+  const paymentMethods =
+    (paymentMethodsRetrieved && paymentMethodsRetrieved["hydra:member"]) || [];
+
+  const amountValue = watch("amount");
 
   useEffect(() => {
     if (error instanceof SubmissionError) {
@@ -92,23 +106,35 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
         type="text"
         errors={errors}
       />
-      <Field
-        register={register}
-        name="amount"
-        label="Montant"
-        placeholder=""
-        type="number"
-        step="0.01"
-        errors={errors}
-      />
-      <Field
-        register={register}
-        name="paymentMethod"
-        label="Moyen de paiement"
-        placeholder=""
-        type="text"
-        errors={errors}
-      />
+      <div className="grid grid-cols-2 gap-4">
+        <Field
+          register={register}
+          name="amount"
+          label="Montant"
+          placeholder=""
+          type="number"
+          step="0.01"
+          min="0"
+          errors={errors}
+        />
+        {!!amountValue && amountToDecimal(amountValue) > 0 && (
+          <Field
+            register={register}
+            name="paymentMethod"
+            label="Moyen de paiement"
+            placeholder=""
+            type="select"
+            errors={errors}
+            options={
+              !paymentMethodsLoading && !paymentMethodsError
+                ? paymentMethods.map((pm) => {
+                    return { value: pm["@id"], label: pm.name };
+                  })
+                : []
+            }
+          />
+        )}
+      </div>
       <Field
         register={register}
         name="willingToVolunteer"

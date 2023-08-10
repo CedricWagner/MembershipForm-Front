@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Logo from "./components/Logo/Logo";
-import MembershipForm from "./components/MembershipForm/MembershipForm";
-import { Create, List } from "./crud/member";
 import MembershipPage from "./pages/MembershipPage/MembershipPage";
 import memberRoutes from "./routes/member";
+import paymentMethodsRoutes from "./routes/paymentmethod";
 
 function App() {
   return (
@@ -21,6 +20,7 @@ function App() {
             <Routes>
               <Route path="/form" element={<MembershipPage />} />
               {memberRoutes}
+              {paymentMethodsRoutes}
             </Routes>
           </main>
         </BrowserRouter>

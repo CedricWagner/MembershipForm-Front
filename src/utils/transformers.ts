@@ -9,3 +9,7 @@ export const amountToString = (
 
   return stringValue;
 };
+
+export const amountToDecimal = (value: string): number => {
+  return parseFloat(value);
+};

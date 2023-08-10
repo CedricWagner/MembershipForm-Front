@@ -14,8 +14,13 @@ interface FieldProps<TFieldValues extends FieldValues> {
   placeholder: string;
   type: string;
   step?: string;
+  min?: string;
   required?: boolean;
   errors: Partial<DeepMap<TFieldValues, FieldError>>;
+  options?: {
+    value: string;
+    label?: string;
+  }[];
 }
 
 const Field = <TFieldValues extends FieldValues>({
@@ -25,8 +30,10 @@ const Field = <TFieldValues extends FieldValues>({
   placeholder,
   type,
   step,
+  min,
   required = false,
   errors,
+  options,
 }: FieldProps<TFieldValues>) => {
   const inputProps: { className: string; "aria-invalid"?: boolean } = {
     className: "",
@@ -60,14 +67,30 @@ const Field = <TFieldValues extends FieldValues>({
       >
         {label ? label : name}
       </label>
-      <input
-        id={name}
-        placeholder={placeholder}
-        type={type}
-        step={step}
-        {...inputProps}
-        {...register(name, validations)}
-      />
+      {type === "select" ? (
+        <select
+          id={name}
+          placeholder={placeholder}
+          {...inputProps}
+          {...register(name, validations)}
+        >
+          {options?.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <input
+          id={name}
+          placeholder={placeholder}
+          type={type}
+          step={step}
+          min={min}
+          {...inputProps}
+          {...register(name, validations)}
+        />
+      )}
       {errors[name] && (
         <FormErrorMessage>{errors[name]?.message}</FormErrorMessage>
       )}
