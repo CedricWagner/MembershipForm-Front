@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { FieldError, UseFormRegister } from "react-hook-form";
+import FormErrorMessage from "../FormErrorMessage/FormErrorMessage";
 
 interface FormInputProps {
   label: string;
@@ -30,11 +31,7 @@ const FormInput: FC<FormInputProps> = ({ label, name, children, error }) => {
         {label}
       </label>
       {children}
-      {error && (
-        <div role="alert" className="text-red-500">
-          {errorText}
-        </div>
-      )}
+      {error && <FormErrorMessage>{errorText}</FormErrorMessage>}
     </div>
   );
 };

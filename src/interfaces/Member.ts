@@ -7,6 +7,6 @@ export interface Member extends ApiResource {
   email?: string;
   amount?: string;
   date?: string;
-  paymentMethod?: string;
+  paymentMethod?: string | null;
   willingToVolunteer?: boolean;
 }

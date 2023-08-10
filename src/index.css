@@ -5,11 +5,24 @@
 @layer components {
   form input[type="text"],
   form input[type="email"],
+  form input[type="date"],
   form input[type="number"] {
     @apply mb-3 block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
   }
 
   form select {
     @apply block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
+  }
+
+  .btn {
+    @apply my-4 rounded-lg px-2 py-2 outline-none outline-2 transition-all  hover:bg-opacity-90;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white focus:opacity-70;
+  }
+
+  .btn-link {
+    @apply bg-gray-200 text-black focus:opacity-70;
   }
 }

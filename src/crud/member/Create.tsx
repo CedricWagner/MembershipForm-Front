@@ -3,6 +3,10 @@ import { useCreate } from "../../hooks";
 import Form from "./Form";
 import { TError } from "../../utils/types";
 import TResource from "./type";
+import Waiting from "../../components/Waiting/Waiting";
+import FormErrorMessage from "../../components/FormErrorMessage/FormErrorMessage";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import Container from "../../components/Container/Container";
 
 interface CreateProps {
   created: TResource | null;
@@ -29,26 +33,24 @@ const CreateView = ({
   }
 
   return (
-    <div>
-      <h1>Create Member</h1>
+    <Container>
+      <PageTitle>Nouvel adhérent</PageTitle>
 
-      {loading && (
-        <div className="alert alert-info" role="status">
-          Loading...
-        </div>
-      )}
-      {error && (
-        <div className="alert alert-danger" role="alert">
-          <span className="fa fa-exclamation-triangle" aria-hidden="true" />{" "}
-          {error.message}
-        </div>
-      )}
+      {loading && <Waiting isInline={false} />}
+      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
 
-      <Form onSubmit={create} error={error} reset={reset} />
-      <Link to="/members/" className="btn btn-primary">
-        Back to list
+      <Form
+        onSubmit={create}
+        error={error}
+        reset={reset}
+        initialValues={{
+          date: new Date().toISOString().split("T")[0],
+        }}
+      />
+      <Link to="/members/" className="btn btn-link">
+        Retour à la liste
       </Link>
-    </div>
+    </Container>
   );
 };
 
