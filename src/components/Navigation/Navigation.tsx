@@ -1,0 +1,59 @@
+import { FC } from "react";
+import { HiHome, HiUser, HiUserAdd, HiCreditCard } from "react-icons/hi";
+import NavigationItem from "../NavigationItem/NavigationItem";
+
+interface NavigationProps {
+  isMobileMenuOpen?: boolean;
+  onItemSelect: () => void;
+}
+
+const Navigation: FC<NavigationProps> = ({
+  isMobileMenuOpen = false,
+  onItemSelect,
+}) => {
+  return (
+    <>
+      {isMobileMenuOpen && (
+        <div className="top-18 fixed left-0 z-10 h-full w-full bg-dark bg-opacity-50"></div>
+      )}
+      <nav
+        className={`top-18 z-20 w-full  ${
+          isMobileMenuOpen ? "fixed" : "hidden"
+        }`}
+      >
+        <ul
+          data-testid="Navigation"
+          id="main-menu"
+          className="container mx-auto flex-wrap gap-4 bg-white px-4"
+        >
+          <NavigationItem
+            href="/"
+            title="Accueil"
+            picto={<HiHome />}
+            onSelect={onItemSelect}
+          />
+          <NavigationItem
+            href="/members/create"
+            title="Nouvel adhérent"
+            picto={<HiUserAdd />}
+            onSelect={onItemSelect}
+          />
+          <NavigationItem
+            href="/members"
+            title="Gestion des membres"
+            picto={<HiUser />}
+            onSelect={onItemSelect}
+          />
+          <NavigationItem
+            href="/payment_methods"
+            title="Gestion des moyens de paiement"
+            picto={<HiCreditCard />}
+            onSelect={onItemSelect}
+          />
+        </ul>
+      </nav>
+    </>
+  );
+};
+
+export default Navigation;
