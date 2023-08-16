@@ -5,6 +5,15 @@ import { useRetrieve } from "../../hooks";
 import { PagedCollection } from "../../interfaces/Collection";
 import TResource from "./type";
 import { TError } from "../../utils/types";
+import Container from "../../components/Container/Container";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import Waiting from "../../components/Waiting/Waiting";
+import FormErrorMessage from "../../components/FormErrorMessage/FormErrorMessage";
+import Table from "../../components/Table/Table";
+import Head from "../../components/Table/Head/Head";
+import HeadCell from "../../components/Table/HeadCell/HeadCell";
+import Line from "../../components/Table/Line/Line";
+import Cell from "../../components/Table/Cell/Cell";
 
 interface ListProps {
   retrieved: PagedCollection<TResource> | null;
@@ -16,61 +25,59 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
   const items = (retrieved && retrieved["hydra:member"]) || [];
 
   return (
-    <div>
-      <h1>PaymentMethod List</h1>
+    <Container>
+      <PageTitle>Gestion des moyen de paiement</PageTitle>
 
-      {loading && <div className="alert alert-info">Loading...</div>}
-      {error && <div className="alert alert-danger">{error.message}</div>}
+      {loading && <Waiting isInline={false} />}
+      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
 
       <p>
         <Link to="create" className="btn btn-primary">
-          Create
+          Nouveau
         </Link>
       </p>
 
-      <table className="table table-responsive table-striped table-hover">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>name</th>
-            <th colSpan={2} />
-          </tr>
-        </thead>
+      <Table>
+        <Head>
+          <HeadCell>id</HeadCell>
+          <HeadCell>Nom</HeadCell>
+          <th colSpan={2} />
+        </Head>
         <tbody>
           {items.map((item) => (
-            <tr key={item["@id"]}>
-              <th scope="row">
+            <Line key={item["@id"]}>
+              <HeadCell scope="row">
                 <Links
                   items={{
                     href: `show/${encodeURIComponent(item["@id"])}`,
                     name: item["@id"],
                   }}
                 />
-              </th>
-              <td>{item["name"]}</td>
-              <td>
+              </HeadCell>
+              <Cell>{item["name"]}</Cell>
+              <Cell>
                 <Link
                   to={`/paymentmethods/show/${encodeURIComponent(item["@id"])}`}
                 >
                   <span className="fa fa-search" aria-hidden="true" />
                   <span className="sr-only">Show</span>
                 </Link>
-              </td>
-              <td>
+              </Cell>
+              <Cell>
                 <Link
                   to={`/paymentmethods/edit/${encodeURIComponent(item["@id"])}`}
                 >
                   <span className="fa fa-pencil" aria-hidden="true" />
                   <span className="sr-only">Edit</span>
                 </Link>
-              </td>
-            </tr>
+              </Cell>
+            </Line>
           ))}
         </tbody>
-      </table>
+      </Table>
 
       <Pagination retrieved={retrieved} />
-    </div>
+    </Container>
   );
 };
 

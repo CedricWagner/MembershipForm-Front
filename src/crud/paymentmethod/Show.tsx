@@ -54,7 +54,7 @@ const ShowView = ({
       )}
 
       {item && (
-        <table className="table table-responsive table-striped table-hover">
+        <table className="table-responsive table-striped table-hover table">
           <thead>
             <tr>
               <th>Field</th>
@@ -64,7 +64,7 @@ const ShowView = ({
           <tbody>
             <tr>
               <th scope="row">name</th>
-              <td>{item["name"]}retrieved</td>
+              <td>{item["name"]}</td>
             </tr>
           </tbody>
         </table>

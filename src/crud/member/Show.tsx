@@ -64,27 +64,27 @@ const ShowView = ({
           <tbody>
             <tr>
               <th scope="row">num</th>
-              <td>{item["num"]}retrieved</td>
+              <td>{item["num"]}</td>
             </tr>
             <tr>
               <th scope="row">firstname</th>
-              <td>{item["firstname"]}retrieved</td>
+              <td>{item["firstname"]}</td>
             </tr>
             <tr>
               <th scope="row">lastname</th>
-              <td>{item["lastname"]}retrieved</td>
+              <td>{item["lastname"]}</td>
             </tr>
             <tr>
               <th scope="row">email</th>
-              <td>{item["email"]}retrieved</td>
+              <td>{item["email"]}</td>
             </tr>
             <tr>
               <th scope="row">amount</th>
-              <td>{item["amount"]}retrieved</td>
+              <td>{item["amount"]}</td>
             </tr>
             <tr>
               <th scope="row">date</th>
-              <td>{item["date"]}retrieved</td>
+              <td>{item["date"]}</td>
             </tr>
             <tr>
               <th scope="row">paymentMethod</th>
@@ -101,7 +101,7 @@ const ShowView = ({
             </tr>
             <tr>
               <th scope="row">willingToVolunteer</th>
-              <td>{item["willingToVolunteer"]}retrieved</td>
+              <td>{item["willingToVolunteer"]}</td>
             </tr>
           </tbody>
         </table>

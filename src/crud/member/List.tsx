@@ -5,6 +5,15 @@ import { useRetrieve } from "../../hooks";
 import { PagedCollection } from "../../interfaces/Collection";
 import TResource from "./type";
 import { TError } from "../../utils/types";
+import Container from "../../components/Container/Container";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import Waiting from "../../components/Waiting/Waiting";
+import FormErrorMessage from "../../components/FormErrorMessage/FormErrorMessage";
+import Table from "../../components/Table/Table";
+import Head from "../../components/Table/Head/Head";
+import HeadCell from "../../components/Table/HeadCell/HeadCell";
+import Cell from "../../components/Table/Cell/Cell";
+import Line from "../../components/Table/Line/Line";
 
 interface ListProps {
   retrieved: PagedCollection<TResource> | null;
@@ -16,51 +25,49 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
   const items = (retrieved && retrieved["hydra:member"]) || [];
 
   return (
-    <div>
-      <h1>Member List</h1>
+    <Container>
+      <PageTitle>Liste des adhésions</PageTitle>
 
-      {loading && <div className="alert alert-info">Loading...</div>}
-      {error && <div className="alert alert-danger">{error.message}</div>}
+      {loading && <Waiting isInline={false} />}
+      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
 
       <p>
         <Link to="create" className="btn btn-primary">
-          Create
+          Nouveau
         </Link>
       </p>
 
-      <table className="table-responsive table-striped table-hover table">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>num</th>
-            <th>firstname</th>
-            <th>lastname</th>
-            <th>email</th>
-            <th>amount</th>
-            <th>date</th>
-            <th>paymentMethod</th>
-            <th>willingToVolunteer</th>
-            <th colSpan={2} />
-          </tr>
-        </thead>
+      <Table>
+        <Head>
+          <HeadCell>id</HeadCell>
+          <HeadCell>Numéro</HeadCell>
+          <HeadCell>Prénom</HeadCell>
+          <HeadCell>Nom</HeadCell>
+          <HeadCell>Email</HeadCell>
+          <HeadCell>Montant</HeadCell>
+          <HeadCell>Date</HeadCell>
+          <HeadCell>Méthode de paiement</HeadCell>
+          <HeadCell>Souhaite devenir bénévole ?</HeadCell>
+          <th colSpan={2} />
+        </Head>
         <tbody>
           {items.map((item) => (
-            <tr key={item["@id"]}>
-              <th scope="row">
+            <Line key={item["@id"]}>
+              <HeadCell scope="row">
                 <Links
                   items={{
                     href: `show/${encodeURIComponent(item["@id"])}`,
                     name: item["@id"],
                   }}
                 />
-              </th>
-              <td>{item["num"]}</td>
-              <td>{item["firstname"]}</td>
-              <td>{item["lastname"]}</td>
-              <td>{item["email"]}</td>
-              <td>{item["amount"]}</td>
-              <td>{item["date"]}</td>
-              <td>
+              </HeadCell>
+              <Cell>{item["num"]}</Cell>
+              <Cell>{item["firstname"]}</Cell>
+              <Cell>{item["lastname"]}</Cell>
+              <Cell>{item["email"]}</Cell>
+              <Cell>{item["amount"]}</Cell>
+              <Cell>{item["date"]}</Cell>
+              <Cell>
                 <Links
                   items={{
                     href: `/payment_methods/show/${encodeURIComponent(
@@ -69,27 +76,27 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
                     name: item["paymentMethod"],
                   }}
                 />
-              </td>
-              <td>{item["willingToVolunteer"]}</td>
-              <td>
+              </Cell>
+              <Cell>{item["willingToVolunteer"] ? "Oui" : "Non"}</Cell>
+              <Cell>
                 <Link to={`/members/show/${encodeURIComponent(item["@id"])}`}>
                   <span className="fa fa-search" aria-hidden="true" />
-                  <span className="sr-only">Show</span>
+                  <span className="sr-only">Voir</span>
                 </Link>
-              </td>
-              <td>
+              </Cell>
+              <Cell>
                 <Link to={`/members/edit/${encodeURIComponent(item["@id"])}`}>
                   <span className="fa fa-pencil" aria-hidden="true" />
-                  <span className="sr-only">Edit</span>
+                  <span className="sr-only">Modifier</span>
                 </Link>
-              </td>
-            </tr>
+              </Cell>
+            </Line>
           ))}
         </tbody>
-      </table>
+      </Table>
 
       <Pagination retrieved={retrieved} />
-    </div>
+    </Container>
   );
 };
 
