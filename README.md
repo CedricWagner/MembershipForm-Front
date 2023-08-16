@@ -8,7 +8,7 @@ This repository is concerning the frontend only. For backend, see [the dedicated
 
 - (x) Login screen
 - (x) Application form
-- (x) Display members data  
+- (x) Display members data
 
 ## Getting started
 
@@ -17,5 +17,10 @@ This repository is concerning the frontend only. For backend, see [the dedicated
 - Install npm (8+) & node (16+)
 
 ### Setup dev env
+
 - Setup composer `npm install`
 - Run dev env `npm run dev`
+
+### Run tests
+
+- `npm run test`

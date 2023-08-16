@@ -70,7 +70,7 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onFormSubmit)}>
+    <form onSubmit={handleSubmit(onFormSubmit)} data-testid="MemberForm">
       <Field
         register={register}
         name="date"

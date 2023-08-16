@@ -74,6 +74,7 @@ const Field = <TFieldValues extends FieldValues>({
           {...inputProps}
           {...register(name, validations)}
         >
+          <option value="test">Test</option>
           {options?.map(({ value, label }) => (
             <option key={value} value={value}>
               {label}

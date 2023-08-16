@@ -1,5 +1,5 @@
 import { Link, Navigate } from "react-router-dom";
-import { useCreate } from "../../hooks";
+import { useCreate, useRetrieve } from "../../hooks";
 import Form from "./Form";
 import { TError } from "../../utils/types";
 import TResource from "./type";
@@ -7,6 +7,8 @@ import Waiting from "../../components/Waiting/Waiting";
 import FormErrorMessage from "../../components/FormErrorMessage/FormErrorMessage";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Container from "../../components/Container/Container";
+import { PagedCollection } from "../../interfaces/Collection";
+import { PaymentMethod } from "../../interfaces/PaymentMethod";
 
 interface CreateProps {
   created: TResource | null;
@@ -31,6 +33,15 @@ const CreateView = ({
       />
     );
   }
+
+  // retrieve payment methods
+  const {
+    retrieved: paymentMethodsRetrieved,
+    loading: paymentMethodsLoading,
+    error: paymentMethodsError,
+  } = useRetrieve<PagedCollection<PaymentMethod>>("payment_methods");
+  const paymentMethods =
+    (paymentMethodsRetrieved && paymentMethodsRetrieved["hydra:member"]) || [];
 
   return (
     <Container>
