@@ -3,6 +3,11 @@ import Form from "./Form";
 import { useDelete, useRetrieve, useUpdate } from "../../hooks";
 import TResource from "./type";
 import { TError } from "../../utils/types";
+import Container from "../../components/Container/Container";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import SuccessMessage from "../../components/SuccessMessage/SuccessMessage";
+import Waiting from "../../components/Waiting/Waiting";
+import FormErrorMessage from "../../components/FormErrorMessage/FormErrorMessage";
 
 interface UpdateProps {
   retrieved: TResource | null;
@@ -43,48 +48,33 @@ const UpdateView = ({
   const delWithConfirm = () => {
     if (
       retrieved &&
-      window.confirm("Are you sure you want to delete this item?")
+      window.confirm(
+        "Êtes vous certain·e de vouloir supprimer cette adhésion ?"
+      )
     ) {
       del(retrieved);
     }
   };
 
   return (
-    <div>
-      <h1>Edit Member {item && item["@id"]}</h1>
+    <Container>
+      <PageTitle>Modifier l'adhésion {item && item["@id"]}</PageTitle>
 
-      {created && (
-        <div className="alert alert-success" role="status">
-          {created["@id"]} created.
-        </div>
-      )}
+      {created && <SuccessMessage>{created["@id"]} créé.</SuccessMessage>}
       {updated && (
-        <div className="alert alert-success" role="status">
-          {updated["@id"]} updated.
-        </div>
+        <SuccessMessage>{updated["@id"]} mis à jours.</SuccessMessage>
       )}
       {(retrieveLoading || updateLoading || deleteLoading) && (
-        <div className="alert alert-info" role="status">
-          Loading...
-        </div>
+        <Waiting isInline={true} />
       )}
       {retrieveError && (
-        <div className="alert alert-danger" role="alert">
-          <span className="fa fa-exclamation-triangle" aria-hidden="true" />{" "}
-          {retrieveError.message}
-        </div>
+        <FormErrorMessage>{retrieveError.message}</FormErrorMessage>
       )}
       {updateError && (
-        <div className="alert alert-danger" role="alert">
-          <span className="fa fa-exclamation-triangle" aria-hidden="true" />{" "}
-          {updateError.message}
-        </div>
+        <FormErrorMessage>{updateError.message}</FormErrorMessage>
       )}
       {deleteError && (
-        <div className="alert alert-danger" role="alert">
-          <span className="fa fa-exclamation-triangle" aria-hidden="true" />{" "}
-          {deleteError.message}
-        </div>
+        <FormErrorMessage>{deleteError.message}</FormErrorMessage>
       )}
 
       {item && (
@@ -98,13 +88,13 @@ const UpdateView = ({
           initialValues={item}
         />
       )}
-      <Link to="/members/" className="btn btn-primary">
-        Back to list
+      <Link to="/members/" className="btn btn-link">
+        Retour à la liste
       </Link>
       <button onClick={delWithConfirm} className="btn btn-danger">
-        Delete
+        Supprimer
       </button>
-    </div>
+    </Container>
   );
 };
 

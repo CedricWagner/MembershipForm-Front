@@ -26,16 +26,10 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
 
   return (
     <Container>
-      <PageTitle>Gestion des moyen de paiement</PageTitle>
+      <PageTitle>Liste des moyens de paiement</PageTitle>
 
       {loading && <Waiting isInline={false} />}
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
-
-      <p>
-        <Link to="create" className="btn btn-primary">
-          Nouveau
-        </Link>
-      </p>
 
       <Table>
         <Head>

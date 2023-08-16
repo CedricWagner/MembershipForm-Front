@@ -35,7 +35,10 @@ const ShowView = ({
   }
 
   const delWithConfirm = () => {
-    if (item && window.confirm("Are you sure you want to delete this item?")) {
+    if (
+      item &&
+      window.confirm("Êtes vous certain·e de vouloir supprimer cet élemnt ?")
+    ) {
       del(item);
     }
   };
@@ -67,11 +70,6 @@ const ShowView = ({
       <Link to="/payment_methods/" className="btn btn-link">
         Retour à la liste
       </Link>
-      {item && (
-        <Link to={`/payment_methods/edit/${encodeURIComponent(item["@id"])}`}>
-          <button className="btn btn-primary">Modifier</button>
-        </Link>
-      )}
     </Container>
   );
 };

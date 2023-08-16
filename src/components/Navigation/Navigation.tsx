@@ -46,7 +46,7 @@ const Navigation: FC<NavigationProps> = ({
           />
           <NavigationItem
             href="/payment_methods"
-            title="Gestion des moyens de paiement"
+            title="Liste des moyens de paiement"
             picto={<HiCreditCard />}
             onSelect={onItemSelect}
           />
