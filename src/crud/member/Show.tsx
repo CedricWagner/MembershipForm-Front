@@ -11,6 +11,11 @@ import Table from "../../components/Table/Table";
 import Head from "../../components/Table/Head/Head";
 import HeadCell from "../../components/Table/HeadCell/HeadCell";
 import Cell from "../../components/Table/Cell/Cell";
+import {
+  amountToDecimal,
+  dateToFrFormat,
+  timestampToDate,
+} from "../../utils/transformers";
 
 interface ShowProps {
   retrieved: TResource | null;
@@ -82,11 +87,11 @@ const ShowView = ({
             </tr>
             <tr>
               <HeadCell scope="row">Montant</HeadCell>
-              <Cell>{item["amount"]}</Cell>
+              <Cell>{item["amount"] && amountToDecimal(item["amount"])}€</Cell>
             </tr>
             <tr>
               <HeadCell scope="row">Date</HeadCell>
-              <Cell>{item["date"]}</Cell>
+              <Cell>{item["date"] && dateToFrFormat(item["date"])}</Cell>
             </tr>
             <tr>
               <HeadCell scope="row">Méthode de paiement</HeadCell>

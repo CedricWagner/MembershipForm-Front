@@ -1,4 +1,8 @@
-import { amountToString, timestampToDate } from "./transformers";
+import {
+  amountToString,
+  dateToFrFormat,
+  timestampToDate,
+} from "./transformers";
 
 describe("transformers / amountToString", () => {
   test("it should parse decimal to string", () => {
@@ -25,5 +29,13 @@ describe("transformers / timestampToDate", () => {
     const date = timestampToDate("2023-08-10T00:00:00+00:00");
 
     expect(date).toBe("2023-08-10");
+  });
+});
+
+describe("transformers / dateToFrFormat", () => {
+  test("it should return the correct date", () => {
+    const date = dateToFrFormat("2023-08-10T00:00:00+00:00");
+
+    expect(date).toBe("10/08/2023");
   });
 });

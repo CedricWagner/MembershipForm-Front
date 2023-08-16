@@ -17,3 +17,13 @@ export const amountToDecimal = (value: string): number => {
 export const timestampToDate = (value: string): string => {
   return value.substring(0, 10);
 };
+
+export const dateToFrFormat = (value: string): string => {
+  const date = new Date(value);
+
+  return date.toLocaleDateString("fr-fr", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  });
+};

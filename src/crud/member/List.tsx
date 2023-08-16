@@ -14,6 +14,11 @@ import Head from "../../components/Table/Head/Head";
 import HeadCell from "../../components/Table/HeadCell/HeadCell";
 import Cell from "../../components/Table/Cell/Cell";
 import Line from "../../components/Table/Line/Line";
+import {
+  amountToDecimal,
+  dateToFrFormat,
+  timestampToDate,
+} from "../../utils/transformers";
 
 interface ListProps {
   retrieved: PagedCollection<TResource> | null;
@@ -65,8 +70,8 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
               <Cell>{item["firstname"]}</Cell>
               <Cell>{item["lastname"]}</Cell>
               <Cell>{item["email"]}</Cell>
-              <Cell>{item["amount"]}</Cell>
-              <Cell>{item["date"]}</Cell>
+              <Cell>{item["amount"] && amountToDecimal(item["amount"])}€</Cell>
+              <Cell>{item["date"] && dateToFrFormat(item["date"])}</Cell>
               <Cell>
                 <Links
                   items={{

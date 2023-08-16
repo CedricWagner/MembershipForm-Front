@@ -58,7 +58,10 @@ const UpdateView = ({
 
   return (
     <Container>
-      <PageTitle>Modifier l'adhésion {item && item["@id"]}</PageTitle>
+      <PageTitle>
+        {item && item["firstname"] + " " + item["lastname"]} : Modifier
+        l'adhésion
+      </PageTitle>
 
       {created && <SuccessMessage>{created["@id"]} créé.</SuccessMessage>}
       {updated && (
