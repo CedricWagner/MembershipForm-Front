@@ -3,6 +3,14 @@ import Links from "../Links";
 import { useRetrieve, useDelete } from "../../hooks";
 import TResource from "./type";
 import { TError } from "../../utils/types";
+import Container from "../../components/Container/Container";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import Waiting from "../../components/Waiting/Waiting";
+import FormErrorMessage from "../../components/FormErrorMessage/FormErrorMessage";
+import Table from "../../components/Table/Table";
+import Head from "../../components/Table/Head/Head";
+import HeadCell from "../../components/Table/HeadCell/HeadCell";
+import Cell from "../../components/Table/Cell/Cell";
 
 interface ShowProps {
   retrieved: TResource | null;
@@ -25,70 +33,64 @@ const ShowView = ({
     return <Navigate to="/members/" replace />;
   }
 
-  const delWithConfirm = () => {
-    if (item && window.confirm("Are you sure you want to delete this item?")) {
+  const delWiHeadCellConfirm = () => {
+    if (
+      item &&
+      window.confirm(
+        "Êtes vous certain·e de vouloir supprimer cette adhésion ?"
+      )
+    ) {
       del(item);
     }
   };
 
   return (
-    <div>
-      <h1>Show Member {item && item["@id"]}</h1>
+    <Container>
+      <PageTitle>
+        {item && item["firstname"] + " " + item["lastname"]} : Détail de
+        l'adhésion
+      </PageTitle>
 
-      {loading && (
-        <div className="alert alert-info" role="status">
-          Loading...
-        </div>
-      )}
-      {error && (
-        <div className="alert alert-danger" role="alert">
-          <span className="fa fa-exclamation-triangle" aria-hidden="true" />{" "}
-          {error.message}
-        </div>
-      )}
+      {loading && <Waiting isInline={false} />}
+      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
       {deleteError && (
-        <div className="alert alert-danger" role="alert">
-          <span className="fa fa-exclamation-triangle" aria-hidden="true" />{" "}
-          {deleteError.message}
-        </div>
+        <FormErrorMessage>{deleteError.message}</FormErrorMessage>
       )}
 
       {item && (
-        <table className="table-responsive table-striped table-hover table">
-          <thead>
-            <tr>
-              <th>Field</th>
-              <th>Value</th>
-            </tr>
-          </thead>
+        <Table>
+          <Head>
+            <HeadCell>Champ</HeadCell>
+            <HeadCell>Valeur</HeadCell>
+          </Head>
           <tbody>
             <tr>
-              <th scope="row">num</th>
-              <td>{item["num"]}</td>
+              <HeadCell scope="row">Numéro</HeadCell>
+              <Cell>{item["num"]}</Cell>
             </tr>
             <tr>
-              <th scope="row">firstname</th>
-              <td>{item["firstname"]}</td>
+              <HeadCell scope="row">Prénom</HeadCell>
+              <Cell>{item["firstname"]}</Cell>
             </tr>
             <tr>
-              <th scope="row">lastname</th>
-              <td>{item["lastname"]}</td>
+              <HeadCell scope="row">Nom</HeadCell>
+              <Cell>{item["lastname"]}</Cell>
             </tr>
             <tr>
-              <th scope="row">email</th>
-              <td>{item["email"]}</td>
+              <HeadCell scope="row">Email</HeadCell>
+              <Cell>{item["email"]}</Cell>
             </tr>
             <tr>
-              <th scope="row">amount</th>
-              <td>{item["amount"]}</td>
+              <HeadCell scope="row">Montant</HeadCell>
+              <Cell>{item["amount"]}</Cell>
             </tr>
             <tr>
-              <th scope="row">date</th>
-              <td>{item["date"]}</td>
+              <HeadCell scope="row">Date</HeadCell>
+              <Cell>{item["date"]}</Cell>
             </tr>
             <tr>
-              <th scope="row">paymentMethod</th>
-              <td>
+              <HeadCell scope="row">Méthode de paiement</HeadCell>
+              <Cell>
                 <Links
                   items={{
                     href: `/payment_methods/show/${encodeURIComponent(
@@ -97,27 +99,30 @@ const ShowView = ({
                     name: item["paymentMethod"],
                   }}
                 />
-              </td>
+              </Cell>
             </tr>
             <tr>
-              <th scope="row">willingToVolunteer</th>
-              <td>{item["willingToVolunteer"]}</td>
+              <HeadCell scope="row">Souhaite devenir bénévole</HeadCell>
+              <Cell>{item["willingToVolunteer"] ? "Oui" : "Non"}</Cell>
             </tr>
           </tbody>
-        </table>
+        </Table>
       )}
-      <Link to="/members/" className="btn btn-primary">
-        Back to list
+      <Link to="/members/" className="btn btn-link">
+        Retour à la liste
       </Link>
       {item && (
-        <Link to={`/members/edit/${encodeURIComponent(item["@id"])}`}>
-          <button className="btn btn-warning">Edit</button>
+        <Link
+          to={`/members/edit/${encodeURIComponent(item["@id"])}`}
+          className="btn btn-primary"
+        >
+          <button>Modifier</button>
         </Link>
       )}
-      <button onClick={delWithConfirm} className="btn btn-danger">
-        Delete
+      <button onClick={delWiHeadCellConfirm} className="btn btn-danger">
+        Supprimer
       </button>
-    </div>
+    </Container>
   );
 };
 

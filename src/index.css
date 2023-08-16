@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 @layer components {
+  button {
+  }
   form input[type="text"],
   form input[type="email"],
   form input[type="date"],
@@ -15,7 +17,7 @@
   }
 
   .btn {
-    @apply my-4 rounded-lg px-2 py-2 outline-none outline-2 transition-all  hover:bg-opacity-90;
+    @apply my-4 inline-block rounded-lg px-2 py-2 outline-none  outline-2 transition-all hover:bg-opacity-90;
   }
 
   .btn-primary {
@@ -24,5 +26,9 @@
 
   .btn-link {
     @apply bg-gray-200 text-black focus:opacity-70;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 text-white focus:opacity-70;
   }
 }
