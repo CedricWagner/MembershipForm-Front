@@ -13,3 +13,7 @@ export const amountToString = (
 export const amountToDecimal = (value: string): number => {
   return parseFloat(value);
 };
+
+export const timestampToDate = (value: string): string => {
+  return value.substring(0, 10);
+};

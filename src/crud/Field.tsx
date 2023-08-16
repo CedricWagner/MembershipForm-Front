@@ -20,6 +20,7 @@ interface FieldProps<TFieldValues extends FieldValues> {
   options?: {
     value: string;
     label?: string;
+    selected?: boolean;
   }[];
 }
 
@@ -74,8 +75,8 @@ const Field = <TFieldValues extends FieldValues>({
           {...inputProps}
           {...register(name, validations)}
         >
-          {options?.map(({ value, label }) => (
-            <option key={value} value={value}>
+          {options?.map(({ value, label, selected }) => (
+            <option key={value} value={value} selected={selected}>
               {label}
             </option>
           ))}

@@ -5,7 +5,11 @@ import Field from "../Field";
 import TResource from "./type";
 import PaymentMethodRessource from "../paymentmethod/type";
 import { SubmissionError, TError } from "../../utils/types";
-import { amountToDecimal, amountToString } from "../../utils/transformers";
+import {
+  amountToDecimal,
+  amountToString,
+  timestampToDate,
+} from "../../utils/transformers";
 import { useRetrieve } from "../../hooks";
 import { PagedCollection } from "../../interfaces/Collection";
 
@@ -23,10 +27,12 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
     handleSubmit,
     watch,
     formState: { errors },
+    getValues,
   } = useForm<TResource>({
     defaultValues: initialValues
       ? {
           ...initialValues,
+          date: initialValues.date && timestampToDate(initialValues.date),
         }
       : undefined,
   });
@@ -128,7 +134,11 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
             options={
               !paymentMethodsLoading && !paymentMethodsError
                 ? paymentMethods.map((pm) => {
-                    return { value: pm["@id"], label: pm.name };
+                    return {
+                      value: pm["@id"],
+                      label: pm.name,
+                      selected: getValues("paymentMethod") === pm["@id"],
+                    };
                   })
                 : []
             }

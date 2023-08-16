@@ -5,7 +5,7 @@ interface HeadProps {
 }
 
 const Head: FC<HeadProps> = ({ children }) => (
-  <thead className="border-b border-gray-400 uppercase">
+  <thead data-testid="Head" className="border-b border-gray-400 uppercase">
     <tr>{children}</tr>
   </thead>
 );
