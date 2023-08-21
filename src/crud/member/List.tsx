@@ -14,11 +14,7 @@ import Head from "../../components/Table/Head/Head";
 import HeadCell from "../../components/Table/HeadCell/HeadCell";
 import Cell from "../../components/Table/Cell/Cell";
 import Line from "../../components/Table/Line/Line";
-import {
-  amountToDecimal,
-  dateToFrFormat,
-  timestampToDate,
-} from "../../utils/transformers";
+import { amountToDecimal, dateToFrFormat } from "../../utils/transformers";
 
 interface ListProps {
   retrieved: PagedCollection<TResource> | null;
@@ -76,9 +72,10 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
                 <Links
                   items={{
                     href: `/payment_methods/show/${encodeURIComponent(
-                      item["paymentMethod"]
+                      item["paymentMethod"] && item["paymentMethod"]["@id"]
                     )}`,
-                    name: item["paymentMethod"],
+                    name:
+                      item["paymentMethod"] && item["paymentMethod"]["name"],
                   }}
                 />
               </Cell>

@@ -99,9 +99,10 @@ const ShowView = ({
                 <Links
                   items={{
                     href: `/payment_methods/show/${encodeURIComponent(
-                      item["paymentMethod"]
+                      item["paymentMethod"] && item["paymentMethod"]["@id"]
                     )}`,
-                    name: item["paymentMethod"],
+                    name:
+                      item["paymentMethod"] && item["paymentMethod"]["name"],
                   }}
                 />
               </Cell>

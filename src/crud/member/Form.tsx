@@ -33,6 +33,7 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
       ? {
           ...initialValues,
           date: initialValues.date && timestampToDate(initialValues.date),
+          paymentMethod: initialValues["paymentMethod"]?.["@id"] ?? "",
         }
       : undefined,
   });
