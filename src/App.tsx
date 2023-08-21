@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import Home from "./components/Home/Home";
 import Logo from "./components/Logo/Logo";
 import MenuBurger from "./components/MenuBurger/MenuBurger";
 import Navigation from "./components/Navigation/Navigation";
@@ -29,6 +30,7 @@ function App() {
           />
           <main id="main-content">
             <Routes>
+              <Route path="/" element={<Home />} key="home" />
               {memberRoutes}
               {paymentMethodsRoutes}
             </Routes>
