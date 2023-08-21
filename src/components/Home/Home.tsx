@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Container from "../Container/Container";
 import NavigationBlock from "../NavigationBlock/NavigationBlock";
-import { HiHome, HiUser, HiUserAdd, HiCreditCard } from "react-icons/hi";
+import { HiUser, HiUserAdd, HiCreditCard } from "react-icons/hi";
 import PageTitle from "../PageTitle/PageTitle";
 
 interface HomeProps {}
@@ -13,7 +13,7 @@ const Home: FC<HomeProps> = () => (
       <div className="mt-6 grid grid-cols-3 gap-4">
         <NavigationBlock
           title="Nouvel adhérent"
-          href="/members/create"
+          href="/members/subscribe"
           picto={<HiUserAdd size={40} />}
         />
         <NavigationBlock

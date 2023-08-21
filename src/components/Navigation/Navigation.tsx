@@ -33,7 +33,7 @@ const Navigation: FC<NavigationProps> = ({
             onSelect={onItemSelect}
           />
           <NavigationItem
-            href="/members/create"
+            href="/members/subscribe"
             title="Nouvel adhérent"
             picto={<HiUserAdd />}
             onSelect={onItemSelect}
