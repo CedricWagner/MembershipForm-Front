@@ -15,6 +15,7 @@ import HeadCell from "../../components/Table/HeadCell/HeadCell";
 import Cell from "../../components/Table/Cell/Cell";
 import Line from "../../components/Table/Line/Line";
 import { amountToDecimal, dateToFrFormat } from "../../utils/transformers";
+import DateRangeFilter from "../../components/DateRangeFilter/DateRangeFilter";
 
 interface ListProps {
   retrieved: PagedCollection<TResource> | null;
@@ -25,9 +26,16 @@ interface ListProps {
 const ListView = ({ error, loading, retrieved }: ListProps) => {
   const items = (retrieved && retrieved["hydra:member"]) || [];
 
+  function filterOnDateRange(start: string, end: string) {
+    console.log(start, end);
+  }
+
   return (
     <Container>
-      <PageTitle>Liste des adhésions</PageTitle>
+      <div className="flex flex-wrap justify-between">
+        <PageTitle>Liste des adhésions</PageTitle>
+        <DateRangeFilter onFilter={filterOnDateRange} />
+      </div>
 
       {loading && <Waiting isInline={false} />}
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
