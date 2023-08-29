@@ -105,7 +105,7 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
         </tbody>
       </Table>
 
-      <Pagination retrieved={retrieved} />
+      <Pagination retrieved={retrieved} root="/members/" />
     </Container>
   );
 };

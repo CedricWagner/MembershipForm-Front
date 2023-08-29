@@ -3,13 +3,18 @@ import { PagedCollection } from "../interfaces/Collection";
 
 interface PaginationProps {
   retrieved: PagedCollection<any> | null;
+  root: string;
 }
 
-const Pagination = ({ retrieved }: PaginationProps) => {
+const Pagination = ({ retrieved, root }: PaginationProps) => {
   const view = retrieved && retrieved["hydra:view"];
   if (!view) {
     return null;
   }
+
+  const pathWithRoot = (path: string) => {
+    return root + path;
+  };
 
   const {
     "hydra:first": first,
@@ -18,37 +23,37 @@ const Pagination = ({ retrieved }: PaginationProps) => {
     "hydra:last": last,
   } = view;
 
+  console.log(first, previous);
+
   return (
     <nav aria-label="Page navigation">
       <Link
-        to="."
-        className={`btn btn-primary${previous ? "" : " disabled"}`}
-        aria-label="First page"
+        to={pathWithRoot(!first ? "." : encodeURIComponent(first))}
+        className={`btn btn-link${previous ? "" : " btn-disabled"}`}
+        aria-label="Début"
       >
-        <span aria-hidden="true">&lArr;</span> First
+        <span aria-hidden="true">&lArr;</span> Début
       </Link>
       <Link
-        to={
-          !previous || previous === first ? "." : encodeURIComponent(previous)
-        }
-        className={`btn btn-primary${previous ? "" : " disabled"}`}
-        aria-label="Previous page"
+        to={pathWithRoot(!previous ? "." : encodeURIComponent(previous))}
+        className={`btn btn-link${previous ? "" : " btn-disabled"}`}
+        aria-label="Page précédente"
       >
-        <span aria-hidden="true">&larr;</span> Previous
+        <span aria-hidden="true">&larr;</span> Page précédente
       </Link>
       <Link
-        to={next ? encodeURIComponent(next) : "#"}
-        className={`btn btn-primary${next ? "" : " disabled"}`}
-        aria-label="Next page"
+        to={pathWithRoot(!next ? "." : encodeURIComponent(next))}
+        className={`btn btn-link${next ? "" : " btn-disabled"}`}
+        aria-label="Page suivante"
       >
-        Next <span aria-hidden="true">&rarr;</span>
+        Page suivante <span aria-hidden="true">&rarr;</span>
       </Link>
       <Link
-        to={last ? encodeURIComponent(last) : "#"}
-        className={`btn btn-primary${next ? "" : " disabled"}`}
-        aria-label="Last page"
+        to={pathWithRoot(!last ? "." : encodeURIComponent(last))}
+        className={`btn btn-link${next ? "" : " btn-disabled"}`}
+        aria-label="Fin"
       >
-        Last <span aria-hidden="true">&rArr;</span>
+        Fin <span aria-hidden="true">&rArr;</span>
       </Link>
     </nav>
   );

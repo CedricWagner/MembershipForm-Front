@@ -31,4 +31,8 @@
   .btn-danger {
     @apply bg-red-500 text-white focus:opacity-70;
   }
+
+  .btn-disabled {
+    @apply cursor-default bg-gray-100 italic text-gray-600;
+  }
 }
