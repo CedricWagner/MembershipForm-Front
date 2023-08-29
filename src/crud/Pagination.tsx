@@ -23,8 +23,6 @@ const Pagination = ({ retrieved, root }: PaginationProps) => {
     "hydra:last": last,
   } = view;
 
-  console.log(first, previous);
-
   return (
     <nav aria-label="Page navigation">
       <Link

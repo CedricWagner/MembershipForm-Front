@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Links from "../Links";
 import Pagination from "../Pagination";
 import { useRetrieve } from "../../hooks";
@@ -14,7 +14,11 @@ import Head from "../../components/Table/Head/Head";
 import HeadCell from "../../components/Table/HeadCell/HeadCell";
 import Cell from "../../components/Table/Cell/Cell";
 import Line from "../../components/Table/Line/Line";
-import { amountToDecimal, dateToFrFormat } from "../../utils/transformers";
+import {
+  amountToDecimal,
+  dateToFrFormat,
+  timestampToDate,
+} from "../../utils/transformers";
 import DateRangeFilter from "../../components/DateRangeFilter/DateRangeFilter";
 
 interface ListProps {
@@ -25,23 +29,29 @@ interface ListProps {
 
 const ListView = ({ error, loading, retrieved }: ListProps) => {
   const items = (retrieved && retrieved["hydra:member"]) || [];
+  const navigate = useNavigate();
 
-  function filterOnDateRange(start: string, end: string) {
-    console.log(start, end);
+  function onFilterDateRange(start: string, end: string) {
+    navigate(
+      "/members/" +
+        encodeURIComponent(
+          `/api/members/?date[after]=${start}&date[before]=${end}`
+        )
+    );
   }
 
   return (
     <Container>
       <div className="flex flex-wrap justify-between">
         <PageTitle>Liste des adhésions</PageTitle>
-        <DateRangeFilter onFilter={filterOnDateRange} />
+        <DateRangeFilter onFilter={onFilterDateRange} />
       </div>
 
       {loading && <Waiting isInline={false} />}
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
 
       <p>
-        <Link to="create" className="btn btn-primary">
+        <Link to="/members/create" className="btn btn-primary">
           Nouveau
         </Link>
       </p>
@@ -65,7 +75,7 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
               <HeadCell scope="row">
                 <Links
                   items={{
-                    href: `show/${encodeURIComponent(item["@id"])}`,
+                    href: `/members/show/${encodeURIComponent(item["@id"])}`,
                     name: item["@id"],
                   }}
                 />
@@ -112,7 +122,10 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
 
 const List = () => {
   const { page } = useParams<{ page?: string }>();
-  const id = (page && decodeURIComponent(page)) || "members";
+  const dateNow = timestampToDate(new Date().toISOString());
+  const id =
+    (page && decodeURIComponent(page)) ||
+    `/api/members/?date[after]=${dateNow}&date[before]=${dateNow}`;
 
   const { retrieved, loading, error } =
     useRetrieve<PagedCollection<TResource>>(id);
