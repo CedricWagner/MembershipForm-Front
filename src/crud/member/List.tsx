@@ -44,7 +44,9 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
     <Container>
       <div className="flex flex-wrap justify-between">
         <PageTitle>Liste des adhésions</PageTitle>
-        <DateRangeFilter onFilter={onFilterDateRange} />
+        <div>
+          <DateRangeFilter onFilter={onFilterDateRange} />
+        </div>
       </div>
 
       {loading && <Waiting isInline={false} />}
