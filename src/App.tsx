@@ -4,6 +4,7 @@ import Home from "./components/Home/Home";
 import Logo from "./components/Logo/Logo";
 import MenuBurger from "./components/MenuBurger/MenuBurger";
 import Navigation from "./components/Navigation/Navigation";
+import ExportMembers from "./pages/ExportMembers/ExportMembers";
 import memberRoutes from "./routes/member";
 import paymentMethodsRoutes from "./routes/paymentmethod";
 
@@ -31,6 +32,11 @@ function App() {
           <main id="main-content">
             <Routes>
               <Route path="/" element={<Home />} key="home" />
+              <Route
+                path="/members/export"
+                element={<ExportMembers />}
+                key="export-members"
+              />
               {memberRoutes}
               {paymentMethodsRoutes}
             </Routes>

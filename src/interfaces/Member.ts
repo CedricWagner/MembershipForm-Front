@@ -1,4 +1,5 @@
 import { ApiResource } from "../utils/types";
+import { PaymentMethod } from "./PaymentMethod";
 
 export interface Member extends ApiResource {
   num?: number;
@@ -7,6 +8,6 @@ export interface Member extends ApiResource {
   email?: string;
   amount?: string;
   date?: string;
-  paymentMethod?: string | null;
+  paymentMethod?: string | PaymentMethod | null;
   willingToVolunteer?: boolean;
 }

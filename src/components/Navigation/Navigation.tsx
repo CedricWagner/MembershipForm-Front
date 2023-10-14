@@ -1,5 +1,11 @@
 import { FC } from "react";
-import { HiHome, HiUser, HiUserAdd, HiCreditCard } from "react-icons/hi";
+import {
+  HiHome,
+  HiUser,
+  HiUserAdd,
+  HiCreditCard,
+  HiDocumentDownload,
+} from "react-icons/hi";
 import NavigationItem from "../NavigationItem/NavigationItem";
 
 interface NavigationProps {
@@ -42,6 +48,12 @@ const Navigation: FC<NavigationProps> = ({
             href="/members"
             title="Liste des adhésions"
             picto={<HiUser />}
+            onSelect={onItemSelect}
+          />
+          <NavigationItem
+            href="/members/export"
+            title="Exporter les adhésions"
+            picto={<HiDocumentDownload />}
             onSelect={onItemSelect}
           />
           <NavigationItem

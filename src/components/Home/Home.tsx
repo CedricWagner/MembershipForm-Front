@@ -1,7 +1,12 @@
 import React, { FC } from "react";
 import Container from "../Container/Container";
 import NavigationBlock from "../NavigationBlock/NavigationBlock";
-import { HiUser, HiUserAdd, HiCreditCard } from "react-icons/hi";
+import {
+  HiUser,
+  HiUserAdd,
+  HiCreditCard,
+  HiDocumentDownload,
+} from "react-icons/hi";
 import PageTitle from "../PageTitle/PageTitle";
 
 interface HomeProps {}
@@ -20,6 +25,11 @@ const Home: FC<HomeProps> = () => (
           title="Liste des adhérents"
           href="/members"
           picto={<HiUser size={40} />}
+        />
+        <NavigationBlock
+          title="Exporter les adhérents"
+          href="/members/export"
+          picto={<HiDocumentDownload size={40} />}
         />
         <NavigationBlock
           title="Liste des moyens de paiement"
