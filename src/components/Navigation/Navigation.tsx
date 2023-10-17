@@ -5,7 +5,9 @@ import {
   HiUserAdd,
   HiCreditCard,
   HiDocumentDownload,
+  HiLogout,
 } from "react-icons/hi";
+import { useAuth } from "../../provider/AuthProvider";
 import NavigationItem from "../NavigationItem/NavigationItem";
 
 interface NavigationProps {
@@ -17,6 +19,7 @@ const Navigation: FC<NavigationProps> = ({
   isMobileMenuOpen = false,
   onItemSelect,
 }) => {
+  const { token, setToken } = useAuth();
   return (
     <>
       {isMobileMenuOpen && (
@@ -32,36 +35,49 @@ const Navigation: FC<NavigationProps> = ({
           id="main-menu"
           className="container mx-auto flex-wrap gap-4 bg-white px-4"
         >
-          <NavigationItem
-            href="/"
-            title="Accueil"
-            picto={<HiHome />}
-            onSelect={onItemSelect}
-          />
-          <NavigationItem
-            href="/members/subscribe"
-            title="Nouvel adhérent"
-            picto={<HiUserAdd />}
-            onSelect={onItemSelect}
-          />
-          <NavigationItem
-            href="/members"
-            title="Liste des adhésions"
-            picto={<HiUser />}
-            onSelect={onItemSelect}
-          />
-          <NavigationItem
-            href="/members/export"
-            title="Exporter les adhésions"
-            picto={<HiDocumentDownload />}
-            onSelect={onItemSelect}
-          />
-          <NavigationItem
-            href="/payment_methods"
-            title="Liste des moyens de paiement"
-            picto={<HiCreditCard />}
-            onSelect={onItemSelect}
-          />
+          {token && (
+            <>
+              <NavigationItem
+                href="/"
+                title="Accueil"
+                picto={<HiHome />}
+                onSelect={onItemSelect}
+              />
+              <NavigationItem
+                href="/members/subscribe"
+                title="Nouvel adhérent"
+                picto={<HiUserAdd />}
+                onSelect={onItemSelect}
+              />
+              <NavigationItem
+                href="/members"
+                title="Liste des adhésions"
+                picto={<HiUser />}
+                onSelect={onItemSelect}
+              />
+              <NavigationItem
+                href="/members/export"
+                title="Exporter les adhésions"
+                picto={<HiDocumentDownload />}
+                onSelect={onItemSelect}
+              />
+              <NavigationItem
+                href="/payment_methods"
+                title="Liste des moyens de paiement"
+                picto={<HiCreditCard />}
+                onSelect={onItemSelect}
+              />
+              <NavigationItem
+                href="#"
+                title="Se déconnecter"
+                picto={<HiLogout />}
+                onSelect={() => {
+                  setToken(null);
+                  onItemSelect();
+                }}
+              />
+            </>
+          )}
         </ul>
       </nav>
     </>

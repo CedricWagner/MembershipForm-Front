@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ENTRYPOINT } from "../config/entrypoint";
+import { useAuth } from "../provider/AuthProvider";
 import { SubmissionErrors, SubmissionError } from "../utils/types";
 
 interface FetchResponse {
@@ -101,6 +102,7 @@ const submissionHandler = (response: Response, json: any) => {
 
 const useFetch = (): IFetchStore => {
   const [auth, setAuth] = useState("");
+  const { token } = useAuth();
 
   return {
     setAuth,
@@ -110,7 +112,8 @@ const useFetch = (): IFetchStore => {
       init = [
         normalizeHeaders,
         normalizeContentType,
-        normalizeAuth(auth),
+        // normalizeAuth(token),
+        normalizeAuth(token ? "Bearer " + token : ""), // TODO: find another workaround
       ].reduce((init, normalize) => normalize(init), init);
 
       if (init.method === "DELETE") {
