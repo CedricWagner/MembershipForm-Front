@@ -4,7 +4,6 @@ import "@testing-library/jest-dom/extend-expect";
 import Navigation from "./Navigation";
 import { BrowserRouter } from "react-router-dom";
 import { vi } from "vitest";
-import { AuthContext } from "../../provider/AuthProvider";
 
 describe("<Navigation />", () => {
   test("it should mount", () => {

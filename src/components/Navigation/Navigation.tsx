@@ -6,6 +6,7 @@ import {
   HiCreditCard,
   HiDocumentDownload,
   HiLogout,
+  HiLogin,
 } from "react-icons/hi";
 import { useAuth } from "../../provider/AuthProvider";
 import NavigationItem from "../NavigationItem/NavigationItem";
@@ -77,6 +78,14 @@ const Navigation: FC<NavigationProps> = ({
                 }}
               />
             </>
+          )}
+          {!token && (
+            <NavigationItem
+              href="/login"
+              title="Se connecter"
+              picto={<HiLogin />}
+              onSelect={onItemSelect}
+            />
           )}
         </ul>
       </nav>
