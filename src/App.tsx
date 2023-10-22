@@ -1,12 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Logo from "./components/Logo/Logo";
 import MenuBurger from "./components/MenuBurger/MenuBurger";
 import Navigation from "./components/Navigation/Navigation";
-import Login from "./crud/user/Login";
 import ExportMembers from "./pages/ExportMembers/ExportMembers";
-import AuthProvider, { AuthContext, useAuth } from "./provider/AuthProvider";
+import { useAuth } from "./provider/AuthProvider";
 import memberRoutes from "./routes/member";
 import paymentMethodsRoutes from "./routes/paymentmethod";
 import userRoutes from "./routes/user";
