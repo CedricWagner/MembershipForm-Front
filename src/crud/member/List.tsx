@@ -20,6 +20,7 @@ import {
   timestampToDate,
 } from "../../utils/transformers";
 import DateRangeFilter from "../../components/DateRangeFilter/DateRangeFilter";
+import { PaymentMethod } from "../../interfaces/PaymentMethod";
 
 interface ListProps {
   retrieved: PagedCollection<TResource> | null;
@@ -92,10 +93,14 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
                 <Links
                   items={{
                     href: `/payment_methods/show/${encodeURIComponent(
-                      item["paymentMethod"] && item["paymentMethod"]["@id"]
+                      (item.paymentMethod &&
+                        (item.paymentMethod as PaymentMethod)["@id"]) ??
+                        ""
                     )}`,
                     name:
-                      item["paymentMethod"] && item["paymentMethod"]["name"],
+                      (item.paymentMethod &&
+                        (item.paymentMethod as PaymentMethod).name) ??
+                      "",
                   }}
                 />
               </Cell>

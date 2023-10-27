@@ -16,6 +16,7 @@ import {
   dateToFrFormat,
   timestampToDate,
 } from "../../utils/transformers";
+import { PaymentMethod } from "../../interfaces/PaymentMethod";
 
 interface ShowProps {
   retrieved: TResource | null;
@@ -99,10 +100,14 @@ const ShowView = ({
                 <Links
                   items={{
                     href: `/payment_methods/show/${encodeURIComponent(
-                      item["paymentMethod"] && item["paymentMethod"]["@id"]
+                      (item.paymentMethod &&
+                        (item.paymentMethod as PaymentMethod)["@id"]) ??
+                        ""
                     )}`,
                     name:
-                      item["paymentMethod"] && item["paymentMethod"]["name"],
+                      (item.paymentMethod &&
+                        (item.paymentMethod as PaymentMethod).name) ??
+                      "",
                   }}
                 />
               </Cell>

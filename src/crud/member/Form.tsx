@@ -12,6 +12,7 @@ import {
 } from "../../utils/transformers";
 import { useRetrieve } from "../../hooks";
 import { PagedCollection } from "../../interfaces/Collection";
+import { PaymentMethod } from "../../interfaces/PaymentMethod";
 
 interface FormProps {
   onSubmit: (item: Partial<TResource>) => any;
@@ -33,7 +34,8 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
       ? {
           ...initialValues,
           date: initialValues.date && timestampToDate(initialValues.date),
-          paymentMethod: initialValues["paymentMethod"]?.["@id"] ?? "",
+          paymentMethod:
+            (initialValues.paymentMethod as PaymentMethod)?.["@id"] ?? "",
         }
       : undefined,
   });
