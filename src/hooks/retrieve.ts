@@ -10,7 +10,6 @@ const useRetrieve = <Resource extends ApiResource>(id: string) => {
     retrieve(id);
 
     return () => reset();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return show;

@@ -3,7 +3,6 @@ import { ApiResource, TError } from "../utils/types";
 import { PagedCollection } from "../interfaces/Collection";
 import useFetch from "./fetch";
 import useMercure from "./mercure";
-import { useAuth } from "../provider/AuthProvider";
 
 interface IShowStore<Resource extends ApiResource> {
   error: TError;
@@ -55,7 +54,7 @@ const useShow = <Resource extends ApiResource>(): IShowStore<Resource> => {
       }
       setRetrieved(message);
     }
-  }, [message, setRetrieved]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [message, setRetrieved]);
 
   return {
     error,

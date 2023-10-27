@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ENTRYPOINT } from "../config/entrypoint";
 import { useAuth } from "../provider/AuthProvider";
 import { SubmissionErrors, SubmissionError } from "../utils/types";
@@ -10,7 +9,6 @@ interface FetchResponse {
 
 export interface IFetchStore {
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<FetchResponse>;
-  setAuth: (auth: string) => void;
 }
 
 const normalizeUrl = (url: string) => {
@@ -108,12 +106,9 @@ const submissionHandler = (response: Response, json: any) => {
 };
 
 const useFetch = (): IFetchStore => {
-  const [auth, setAuth] = useState("");
   const { token, setToken } = useAuth();
 
   return {
-    setAuth,
-
     fetch(input, init = {}) {
       input = normalizeInput(input);
       init = [

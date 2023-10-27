@@ -5,7 +5,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "npx vitest"
+    "test": "npx vitest",
+    "lint": "eslint . --ext .ts"
   },
   "dependencies": {
     "react": "^18.0.2",
@@ -24,6 +25,8 @@
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
     "@vitejs/plugin-react": "^1.0.7",
+    "eslint": "^8.52.0",
+    "eslint-plugin-react": "^7.33.2",
     "jsdom": "^22.1.0",
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.5",

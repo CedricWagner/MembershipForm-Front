@@ -61,7 +61,6 @@ const useMercure = <Resource extends ApiResource>(
         eventSource.close();
       }
     };
-    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eventSource]);
 
   useEffect(() => {
