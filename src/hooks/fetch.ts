@@ -73,6 +73,13 @@ const regularHandler = (response: Response, json: any) => {
   throw new Error(error);
 };
 
+// Remove token if necessary
+const tokenHandler = (json: any, setToken: (token: string | null) => void) => {
+  if (json.message == "Expired JWT Token") {
+    setToken(null);
+  }
+};
+
 const submissionHandler = (response: Response, json: any) => {
   if (!json.violations) {
     return;
@@ -102,7 +109,7 @@ const submissionHandler = (response: Response, json: any) => {
 
 const useFetch = (): IFetchStore => {
   const [auth, setAuth] = useState("");
-  const { token } = useAuth();
+  const { token, setToken } = useAuth();
 
   return {
     setAuth,
@@ -138,6 +145,7 @@ const useFetch = (): IFetchStore => {
         .then((data) => {
           if (!data.response.ok) {
             submissionHandler(data.response, data.json);
+            tokenHandler(data.json, setToken);
             regularHandler(data.response, data.json);
           }
 
