@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  preprod-adhesion-app:
+    image: wodby/nginx:1.23
+    volumes:
+      - ./dist:/var/www/html:cached
+    environment:
+      NGINX_SERVER_ROOT: /var/www/html
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
