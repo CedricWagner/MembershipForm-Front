@@ -4,6 +4,8 @@ import Home from "./components/Home/Home";
 import Logo from "./components/Logo/Logo";
 import MenuBurger from "./components/MenuBurger/MenuBurger";
 import Navigation from "./components/Navigation/Navigation";
+import Subscription from "./crud/member/Subscription";
+import SubscriptionSuccess from "./crud/member/SubscriptionSuccess";
 import ExportMembers from "./pages/ExportMembers/ExportMembers";
 import { useAuth } from "./provider/AuthProvider";
 import memberRoutes from "./routes/member";
@@ -54,6 +56,18 @@ function App() {
               <Route path="/" element={<Home />} key="home" />
               {userRoutes}
               <Route path="*" element={<Home />} key="404" />
+              <Route
+                path="/members/subscribe"
+                element={<Subscription />}
+                key="subscribe"
+              />
+              ,
+              <Route
+                path="/members/subscribe/success/:num"
+                element={<SubscriptionSuccess />}
+                key="subscribe-success"
+              />
+              ,
             </Routes>
           </main>
         </BrowserRouter>
