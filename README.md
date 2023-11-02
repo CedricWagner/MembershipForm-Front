@@ -9,6 +9,7 @@ This repository is concerning the frontend only. For backend, see [the dedicated
 - (x) Login screen
 - (x) Application form
 - (x) Display members data
+- (x) Export members
 
 ## Getting started
 
@@ -18,9 +19,17 @@ This repository is concerning the frontend only. For backend, see [the dedicated
 
 ### Setup dev env
 
-- Setup composer `npm install`
+- Install dependencies `npm install`
 - Run dev env `npm run dev`
+
+### Create a new component
+
+- `npx generate-react-cli component MyComponent`
 
 ### Run tests
 
 - `npm run test`
+
+### Build
+
+- `npm run build`

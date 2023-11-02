@@ -32,7 +32,6 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
   const items = (retrieved && retrieved["hydra:member"]) || [];
   const totalItems = (retrieved && retrieved["hydra:totalItems"]) || 0;
   const navigate = useNavigate();
-  console.log(retrieved);
 
   function onFilterDateRange(start: string, end: string) {
     navigate(
