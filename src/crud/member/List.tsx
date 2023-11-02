@@ -30,7 +30,9 @@ interface ListProps {
 
 const ListView = ({ error, loading, retrieved }: ListProps) => {
   const items = (retrieved && retrieved["hydra:member"]) || [];
+  const totalItems = (retrieved && retrieved["hydra:totalItems"]) || 0;
   const navigate = useNavigate();
+  console.log(retrieved);
 
   function onFilterDateRange(start: string, end: string) {
     navigate(
@@ -58,71 +60,80 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
           Nouveau
         </Link>
       </p>
+      {items.length === 0 && (
+        <p className="italic">Aucun résultat pour les dates sélectionnées</p>
+      )}
 
-      <Table>
-        <Head>
-          <HeadCell>id</HeadCell>
-          <HeadCell>Numéro</HeadCell>
-          <HeadCell>Prénom</HeadCell>
-          <HeadCell>Nom</HeadCell>
-          <HeadCell>Email</HeadCell>
-          <HeadCell>Montant</HeadCell>
-          <HeadCell>Date</HeadCell>
-          <HeadCell>Méthode de paiement</HeadCell>
-          <HeadCell>Souhaite devenir bénévole ?</HeadCell>
-          <th colSpan={2} />
-        </Head>
-        <tbody>
-          {items.map((item) => (
-            <Line key={item["@id"]}>
-              <HeadCell scope="row">
-                <Links
-                  items={{
-                    href: `/members/show/${encodeURIComponent(item["@id"])}`,
-                    name: item["@id"],
-                  }}
-                />
-              </HeadCell>
-              <Cell>{item["num"]}</Cell>
-              <Cell>{item["firstname"]}</Cell>
-              <Cell>{item["lastname"]}</Cell>
-              <Cell>{item["email"]}</Cell>
-              <Cell>{item["amount"] && amountToDecimal(item["amount"])}€</Cell>
-              <Cell>{item["date"] && dateToFrFormat(item["date"])}</Cell>
-              <Cell>
-                <Links
-                  items={{
-                    href: `/payment_methods/show/${encodeURIComponent(
-                      (item.paymentMethod &&
-                        (item.paymentMethod as PaymentMethod)["@id"]) ??
-                        ""
-                    )}`,
-                    name:
-                      (item.paymentMethod &&
-                        (item.paymentMethod as PaymentMethod).name) ??
-                      "",
-                  }}
-                />
-              </Cell>
-              <Cell>{item["willingToVolunteer"] ? "Oui" : "Non"}</Cell>
-              <Cell>
-                <Link to={`/members/show/${encodeURIComponent(item["@id"])}`}>
-                  <span className="fa fa-search" aria-hidden="true" />
-                  <span className="sr-only">Voir</span>
-                </Link>
-              </Cell>
-              <Cell>
-                <Link to={`/members/edit/${encodeURIComponent(item["@id"])}`}>
-                  <span className="fa fa-pencil" aria-hidden="true" />
-                  <span className="sr-only">Modifier</span>
-                </Link>
-              </Cell>
-            </Line>
-          ))}
-        </tbody>
-      </Table>
+      {items.length > 0 && (
+        <Table>
+          <Head>
+            <HeadCell>id</HeadCell>
+            <HeadCell>Numéro</HeadCell>
+            <HeadCell>Prénom</HeadCell>
+            <HeadCell>Nom</HeadCell>
+            <HeadCell>Email</HeadCell>
+            <HeadCell>Montant</HeadCell>
+            <HeadCell>Date</HeadCell>
+            <HeadCell>Méthode de paiement</HeadCell>
+            <HeadCell>Souhaite devenir bénévole ?</HeadCell>
+            <th colSpan={2} />
+          </Head>
+          <tbody>
+            {items.map((item) => (
+              <Line key={item["@id"]}>
+                <HeadCell scope="row">
+                  <Links
+                    items={{
+                      href: `/members/show/${encodeURIComponent(item["@id"])}`,
+                      name: item["@id"],
+                    }}
+                  />
+                </HeadCell>
+                <Cell>{item["num"]}</Cell>
+                <Cell>{item["firstname"]}</Cell>
+                <Cell>{item["lastname"]}</Cell>
+                <Cell>{item["email"]}</Cell>
+                <Cell>
+                  {item["amount"] && amountToDecimal(item["amount"])}€
+                </Cell>
+                <Cell>{item["date"] && dateToFrFormat(item["date"])}</Cell>
+                <Cell>
+                  <Links
+                    items={{
+                      href: `/payment_methods/show/${encodeURIComponent(
+                        (item.paymentMethod &&
+                          (item.paymentMethod as PaymentMethod)["@id"]) ??
+                          ""
+                      )}`,
+                      name:
+                        (item.paymentMethod &&
+                          (item.paymentMethod as PaymentMethod).name) ??
+                        "",
+                    }}
+                  />
+                </Cell>
+                <Cell>{item["willingToVolunteer"] ? "Oui" : "Non"}</Cell>
+                <Cell>
+                  <Link to={`/members/show/${encodeURIComponent(item["@id"])}`}>
+                    <span className="fa fa-search" aria-hidden="true" />
+                    <span className="sr-only">Voir</span>
+                  </Link>
+                </Cell>
+                <Cell>
+                  <Link to={`/members/edit/${encodeURIComponent(item["@id"])}`}>
+                    <span className="fa fa-pencil" aria-hidden="true" />
+                    <span className="sr-only">Modifier</span>
+                  </Link>
+                </Cell>
+              </Line>
+            ))}
+          </tbody>
+        </Table>
+      )}
 
-      <Pagination retrieved={retrieved} root="/members/" />
+      {items.length < totalItems && (
+        <Pagination retrieved={retrieved} root="/members/" />
+      )}
     </Container>
   );
 };
