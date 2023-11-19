@@ -89,14 +89,21 @@ const submissionHandler = (response: Response, json: any) => {
     json["message"] ||
     "An error occurred.";
 
-  const violations: { propertyPath: string; message: string }[] =
-    json.violations.violations || json.violations;
+  const violations: {
+    propertyPath: string;
+    message?: string;
+    title?: string;
+  }[] = json.violations.violations || json.violations;
 
   const errors = violations.reduce((errors, violation) => {
+    const violationMessage =
+      violation.message ||
+      violation.title ||
+      "Ce champ présente une valeur incorrecte";
     if (errors[violation.propertyPath]) {
-      errors[violation.propertyPath] += "\n" + violation.message;
+      errors[violation.propertyPath] += "\n" + violationMessage;
     } else {
-      errors[violation.propertyPath] = violation.message;
+      errors[violation.propertyPath] = violationMessage;
     }
 
     return errors;
