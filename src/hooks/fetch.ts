@@ -90,7 +90,7 @@ const submissionHandler = (response: Response, json: any) => {
     "An error occurred.";
 
   const violations: { propertyPath: string; message: string }[] =
-    json.violations;
+    json.violations.violations || json.violations;
 
   const errors = violations.reduce((errors, violation) => {
     if (errors[violation.propertyPath]) {
