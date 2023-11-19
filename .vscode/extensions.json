@@ -1,3 +1,14 @@
 {
-  "recommendations": ["esbenp.prettier-vscode", "bradlc.vscode-tailwindcss"]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "steoates.autoimport",
+    "formulahendry.auto-rename-tag",
+    "mgmcdermott.vscode-language-babel",
+    "tobermory.es6-string-html",
+    "mhutchie.git-graph",
+    "xabikos.reactsnippets",
+    "niklaspor.px-rem-converter"
+  ]
 }
