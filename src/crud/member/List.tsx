@@ -74,7 +74,8 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
             <HeadCell>Montant</HeadCell>
             <HeadCell>Date</HeadCell>
             <HeadCell>Méthode de paiement</HeadCell>
-            <HeadCell>Souhaite devenir bénévole ?</HeadCell>
+            <HeadCell>Newsletter ?</HeadCell>
+            <HeadCell>Bénévole ?</HeadCell>
             <th colSpan={2} />
           </Head>
           <tbody>
@@ -111,6 +112,7 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
                     }}
                   />
                 </Cell>
+                <Cell>{item["subscribedToNewsletter"] ? "Oui" : "Non"}</Cell>
                 <Cell>{item["willingToVolunteer"] ? "Oui" : "Non"}</Cell>
                 <Cell>
                   <Link to={`/members/show/${encodeURIComponent(item["@id"])}`}>

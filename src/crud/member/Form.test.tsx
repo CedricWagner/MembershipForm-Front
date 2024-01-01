@@ -141,6 +141,14 @@ describe("<Form<Member> />", () => {
         },
       }
     );
+    fireEvent.change(
+      screen.getByRole("checkbox", { name: "S'inscrire à la newsletter" }),
+      {
+        target: {
+          value: true,
+        },
+      }
+    );
     fireEvent.submit(screen.getByRole("button"));
 
     await waitFor(() =>
@@ -152,6 +160,7 @@ describe("<Form<Member> />", () => {
         lastname: "MyLastname",
         paymentMethod: "", // TODO: fix this
         willingToVolunteer: false,
+        subscribedToNewsletter: false,
       })
     );
     expect(screen.getByRole("textbox", { name: /email/i })).toHaveValue(

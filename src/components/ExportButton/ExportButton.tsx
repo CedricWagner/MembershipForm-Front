@@ -50,6 +50,7 @@ const ExportButtonView: FC<ViewProps> = ({
                   email: "Email",
                   amount: "Montant",
                   paymentMethod: "Méthode de paiement",
+                  subscribedToNewsletter: "Inscrit à la newsletter ?",
                   willingToVolunteer: "Souhaite devenir bénévole ?",
                 },
               ].concat(
@@ -65,6 +66,9 @@ const ExportButtonView: FC<ViewProps> = ({
                     paymentMethod: item.paymentMethod
                       ? (item.paymentMethod as PaymentMethod).name ?? ""
                       : "",
+                    subscribedToNewsletter: item.subscribedToNewsletter
+                      ? "Oui"
+                      : "Non",
                     willingToVolunteer: item.willingToVolunteer ? "Oui" : "Non",
                   };
                 })

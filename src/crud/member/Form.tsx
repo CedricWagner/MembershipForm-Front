@@ -113,6 +113,7 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
         label="Email"
         placeholder=""
         type="text"
+        required
         errors={errors}
       />
       <div className="grid grid-cols-2 gap-4">
@@ -148,6 +149,14 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
           />
         )}
       </div>
+      <Field
+        register={register}
+        name="subscribedToNewsletter"
+        label="S'inscrire à la newsletter"
+        placeholder=""
+        type="checkbox"
+        errors={errors}
+      />
       <Field
         register={register}
         name="willingToVolunteer"

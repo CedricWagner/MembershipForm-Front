@@ -40,6 +40,8 @@ const Field = <TFieldValues extends FieldValues>({
     className: "",
   };
 
+  let labelClassName: string = "mb-2 text-sm font-bold text-gray-700";
+
   interface ValidationProps {
     [key: string]: any;
   }
@@ -52,7 +54,6 @@ const Field = <TFieldValues extends FieldValues>({
   }
 
   if (errors[name]) {
-    inputProps.className += "";
     inputProps["aria-invalid"] = true;
   }
 
@@ -60,12 +61,15 @@ const Field = <TFieldValues extends FieldValues>({
     inputProps.className += " is-valid";
   }
 
+  if (type === "checkbox") {
+    labelClassName += " mr-2";
+  } else {
+    labelClassName += " block";
+  }
+
   return (
     <div className={errors[name] ? "my-2 border border-red-500 p-2" : ""}>
-      <label
-        className="mb-2 block text-sm font-bold text-gray-700"
-        htmlFor={name}
-      >
+      <label className={labelClassName} htmlFor={name}>
         {label ? label : name}
       </label>
       {type === "select" ? (
