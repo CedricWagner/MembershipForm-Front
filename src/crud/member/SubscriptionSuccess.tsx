@@ -5,6 +5,7 @@ import NavigationBlock from "../../components/NavigationBlock/NavigationBlock";
 import SuccessMessage from "../../components/SuccessMessage/SuccessMessage";
 import { HiCalendar, HiHome, HiUserAdd } from "react-icons/hi";
 import { BiHomeSmile } from "react-icons/bi";
+import { getFormattedMemberNum } from "../../utils/transformers";
 
 interface SubscriptionSuccessProps {}
 
@@ -18,7 +19,9 @@ const SubscriptionSuccess: FC<SubscriptionSuccessProps> = () => {
           <SuccessMessage>
             Adhésion enregistrée ! <br />
             Votre numéro d'adhérent est le{" "}
-            <span className="text-3xl text-green-500">{num}</span>
+            <span className="text-3xl text-green-500">
+              {getFormattedMemberNum(num ?? "1")}
+            </span>
           </SuccessMessage>
           <div className="my-4"></div>
           <NavigationBlock

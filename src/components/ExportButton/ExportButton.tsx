@@ -6,7 +6,10 @@ import { makeCsv } from "../../utils/makeCSV";
 import { TError } from "../../utils/types";
 import FormErrorMessage from "../FormErrorMessage/FormErrorMessage";
 import Waiting from "../Waiting/Waiting";
-import { dateToFrFormat } from "../../utils/transformers";
+import {
+  dateToFrFormat,
+  getFormattedMemberNum,
+} from "../../utils/transformers";
 import { PaymentMethod } from "../../interfaces/PaymentMethod";
 
 interface ViewProps {
@@ -57,7 +60,7 @@ const ExportButtonView: FC<ViewProps> = ({
                 // Members
                 items.map((item) => {
                   return {
-                    num: item.num?.toString() ?? "",
+                    num: getFormattedMemberNum(item.num?.toString() ?? ""),
                     date: item.date ? dateToFrFormat(item.date) : "",
                     lastname: item.lastname ?? "",
                     firstname: item.firstname ?? "",

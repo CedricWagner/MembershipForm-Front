@@ -10,6 +10,12 @@ export const amountToString = (
   return stringValue;
 };
 
+export const getFormattedMemberNum = (num: string): string => {
+  const year = new Date().getFullYear();
+
+  return year.toString().slice(2, 4) + "-W" + num;
+};
+
 export const amountToDecimal = (value: string): number => {
   return parseFloat(value);
 };

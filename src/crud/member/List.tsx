@@ -17,6 +17,7 @@ import Line from "../../components/Table/Line/Line";
 import {
   amountToDecimal,
   dateToFrFormat,
+  getFormattedMemberNum,
   timestampToDate,
 } from "../../utils/transformers";
 import DateRangeFilter from "../../components/DateRangeFilter/DateRangeFilter";
@@ -89,7 +90,9 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
                     }}
                   />
                 </HeadCell>
-                <Cell>{item["num"]}</Cell>
+                <Cell>
+                  {item["num"] && getFormattedMemberNum(item["num"].toString())}
+                </Cell>
                 <Cell>{item["firstname"]}</Cell>
                 <Cell>{item["lastname"]}</Cell>
                 <Cell>{item["email"]}</Cell>

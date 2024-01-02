@@ -14,7 +14,7 @@ import Cell from "../../components/Table/Cell/Cell";
 import {
   amountToDecimal,
   dateToFrFormat,
-  timestampToDate,
+  getFormattedMemberNum,
 } from "../../utils/transformers";
 import { PaymentMethod } from "../../interfaces/PaymentMethod";
 
@@ -72,7 +72,9 @@ const ShowView = ({
           <tbody>
             <tr>
               <HeadCell scope="row">Numéro</HeadCell>
-              <Cell>{item["num"]}</Cell>
+              <Cell>
+                {item["num"] && getFormattedMemberNum(item["num"].toString())}
+              </Cell>
             </tr>
             <tr>
               <HeadCell scope="row">Prénom</HeadCell>
