@@ -51,7 +51,7 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
         name="email"
         label="Email"
         placeholder=""
-        type="text"
+        type="email"
         required
         errors={errors}
       />

@@ -9,6 +9,8 @@ import { useAuth } from "../../provider/AuthProvider";
 import { TError } from "../../utils/types";
 import Form from "./Form";
 import TResource from "./type";
+import NavigationBlock from "../../components/NavigationBlock/NavigationBlock";
+import { HiUserAdd } from "react-icons/hi";
 
 interface LoginViewProps {
   token: string | null;
@@ -22,6 +24,13 @@ const LoginView: FC<LoginViewProps> = ({ login, error, reset, loading }) => {
   return (
     <div data-testid="Login">
       <Container>
+        <div className="flex">
+          <NavigationBlock
+            title="Formulaire d'adhésion"
+            href="/members/subscribe"
+            picto={<HiUserAdd size={40} />}
+          />
+        </div>
         <PageTitle>Se connecter</PageTitle>
 
         {loading && <Waiting isInline={false} />}
