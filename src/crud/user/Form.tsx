@@ -52,6 +52,7 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
         label="Email"
         placeholder=""
         type="email"
+        autocomplete={true}
         required
         errors={errors}
       />

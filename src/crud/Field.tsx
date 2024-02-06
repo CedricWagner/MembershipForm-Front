@@ -17,6 +17,7 @@ interface FieldProps<TFieldValues extends FieldValues> {
   min?: string;
   required?: boolean;
   errors: Partial<DeepMap<TFieldValues, FieldError>>;
+  autocomplete?: boolean;
   options?: {
     value: string;
     label?: string;
@@ -35,6 +36,7 @@ const Field = <TFieldValues extends FieldValues>({
   required = false,
   errors,
   options,
+  autocomplete = false,
 }: FieldProps<TFieldValues>) => {
   const inputProps: { className: string; "aria-invalid"?: boolean } = {
     className: "",
@@ -45,7 +47,7 @@ const Field = <TFieldValues extends FieldValues>({
   interface ValidationProps {
     [key: string]: any;
   }
-  let validations: ValidationProps = {
+  const validations: ValidationProps = {
     valueAsNumber: type === "number",
   };
 
@@ -92,6 +94,7 @@ const Field = <TFieldValues extends FieldValues>({
           type={type}
           step={step}
           min={min}
+          autoComplete={autocomplete ? "on" : "off"}
           {...inputProps}
           {...register(name, validations)}
         />

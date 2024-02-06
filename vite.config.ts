@@ -27,7 +27,7 @@ export default defineConfig({
         name: "Gestion des adhésions",
         short_name: "AppAdhesion",
         description:
-          "Application permettant la gestion des adhésions de la Maison Citoyenne",
+          "Application permettant la gestion des adhésions de la Maison Citoyenne (v1.0.1)",
         theme_color: "#ffffff",
         icons: [
           {
