@@ -98,7 +98,7 @@ const ExportButton: FC<ExportButtonProps> = ({
   dateStart,
   dateEnd,
 }) => {
-  const id = `/api/members/?date[after]=${dateStart}&date[before]=${dateEnd}`;
+  const id = `/api/members/?date[after]=${dateStart}&date[before]=${dateEnd}&pagination=false`;
 
   const { retrieved, loading, error } =
     useRetrieve<PagedCollection<TResource>>(id);
