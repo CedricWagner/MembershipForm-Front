@@ -165,6 +165,15 @@ const Form = ({ onSubmit, error, reset, initialValues }: FormProps) => {
         type="checkbox"
         errors={errors}
       />
+      <p className="mb-4 mt-4 text-xs">
+        En m'inscrivant sur cette liste, je déclare par la présente souhaiter
+        devenir membre de l'association Maison Citoyenne. Je reconnais adhérer à
+        l'objet de l'association et à ses statuts. <br />
+        J'accepte de verser ma cotisation annuelle d'un montant libre et
+        conscient (environ 10 € conseillé pour notre bon fonctionnement) et
+        j'accepte que la Maison Citoyenne utilise mes données personnelles dans
+        un but non commercial afin de me transmettre des informations.
+      </p>
 
       <button type="submit" className="btn btn-primary">
         Envoyer

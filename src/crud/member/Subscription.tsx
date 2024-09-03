@@ -32,7 +32,7 @@ const CreateView = ({
     );
   }
 
-  const { sessionErrorText, hasSessionError } = useKeepAlive(2 * 1000);
+  const { sessionErrorText, hasSessionError } = useKeepAlive(60 * 1000);
 
   return (
     <Container>
