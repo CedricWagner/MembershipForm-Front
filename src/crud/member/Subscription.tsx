@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useCreate } from "../../hooks";
+import { useCreate, useKeepAlive } from "../../hooks";
 import Form from "./Form";
 import { TError } from "../../utils/types";
 import TResource from "./type";
@@ -32,12 +32,17 @@ const CreateView = ({
     );
   }
 
+  const { sessionErrorText, hasSessionError } = useKeepAlive(2 * 1000);
+
   return (
     <Container>
       <PageTitle>Formulaire d'adhésion</PageTitle>
 
       {loading && <Waiting isInline={false} />}
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
+      {hasSessionError && (
+        <FormErrorMessage>{sessionErrorText}</FormErrorMessage>
+      )}
 
       <Form
         onSubmit={create}
