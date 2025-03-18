@@ -1,13 +1,14 @@
-name: Deploy to prod
+name: Deploy to test env
 
 on:
   push:
-    branches: [main]
+    branches:
+      - staging
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    environment: Test
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -29,14 +30,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Sync files via SSH
-      - name: Copy files via ssh and rsync
-        uses: contention/rsync-deployments@v2.0.0
+      # Sync files via FTP
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          flags: -avzr --delete
-          excludes: ""
-          host: ${{ secrets.REMOTE_HOST }}
-          user: ${{ secrets.REMOTE_USER }}
-          localpath: "./"
-          remotepath: ${{ secrets.REMOTE_TARGET }}
-          deploy_key: ${{ secrets.SERVER_SSH_KEY }}
+          server: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
+          server-dir: ${{ secrets.REMOTE_PATH }}
+          local-dir: ./dist/
