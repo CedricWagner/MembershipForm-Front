@@ -1,4 +1,3 @@
-import { useAuth } from "../provider/AuthProvider";
 import { ENTRYPOINT } from "./../config/entrypoint";
 import { useEffect, useState } from "react";
 import useFetch from "./fetch";
@@ -27,7 +26,7 @@ const useCheckTokenValidity = (): ITokenValidityStore => {
         setIsValid(true);
       }
     })
-    .catch((e) => {
+    .catch(() => {
         setIsValid(false);
     });
   });
