@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Logo from "./components/Logo/Logo";
@@ -11,13 +11,21 @@ import { useAuth } from "./provider/AuthProvider";
 import memberRoutes from "./routes/member";
 import paymentMethodsRoutes from "./routes/paymentmethod";
 import userRoutes from "./routes/user";
+import useCheckTokenValidity from "./hooks/check-token-validity";
 
 function App() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   function onToggleMenuBurger() {
     setMobileMenuOpen(!isMobileMenuOpen);
   }
-  const { token } = useAuth();
+  const { token, setToken } = useAuth();
+  const { isValid } = useCheckTokenValidity();
+
+  useEffect(() => {
+    if (!isValid) {
+      setToken(null);
+    }
+  }, [isValid]);
 
   return (
     <div className="flex min-h-screen flex-col">
