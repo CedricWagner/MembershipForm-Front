@@ -5,7 +5,7 @@ import TextFilter from './TextFilter';
 
 describe('<TextFilter />', () => {
   test('it should mount', () => {
-    render(<TextFilter onFilter={() => {}} currentValue="test"/>);
+    render(<TextFilter onFilter={() => {}} />);
 
     const textFilter = screen.getByTestId('TextFilter');
 
