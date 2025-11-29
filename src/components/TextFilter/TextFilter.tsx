@@ -1,15 +1,14 @@
-import React, { FC } from 'react';
+import { FC, FormEvent } from 'react';
 
 interface TextFilterProps {  
   onFilter: (text: string) => void;
-  // currentValue: string;
 }
 
 let label = "Recherche textuelle";
 
 const TextFilter: FC<TextFilterProps> = ({ onFilter }) => (
   <div data-testid="TextFilter">
-    <form action="">
+    <form action="" onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}>
       <label
         className="mb-2 block text-sm font-bold text-gray-700"
         htmlFor={`text-filter-${label.toLowerCase()}`}
@@ -19,7 +18,6 @@ const TextFilter: FC<TextFilterProps> = ({ onFilter }) => (
       <input
         id={`text-filter-${label.toLowerCase()}`}
         placeholder={"pierre.kropotkine@example.com"}
-        // value={currentValue}
         type="text"
         onChange={(e) => onFilter(e.target.value)}
       />
