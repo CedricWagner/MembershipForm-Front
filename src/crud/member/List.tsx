@@ -22,6 +22,9 @@ import {
 } from "../../utils/transformers";
 import DateRangeFilter from "../../components/DateRangeFilter/DateRangeFilter";
 import { PaymentMethod } from "../../interfaces/PaymentMethod";
+import TextFilter from "../../components/TextFilter/TextFilter";
+import { useState } from "react";
+import { HiCalendar, HiChatAlt, HiDocumentText, HiOutlineCalendar, HiSearch } from "react-icons/hi";
 
 interface ListProps {
   retrieved: PagedCollection<TResource> | null;
@@ -33,6 +36,7 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
   const items = (retrieved && retrieved["hydra:member"]) || [];
   const totalItems = (retrieved && retrieved["hydra:totalItems"]) || 0;
   const navigate = useNavigate();
+  const [searchType, setSearchType] = useState("date");
 
   function onFilterDateRange(start: string, end: string) {
     navigate(
@@ -43,12 +47,32 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
     );
   }
 
+  function onFilterText(text: string) {
+    navigate(
+      "/members/" +
+        encodeURIComponent(
+          `/api/members/?search=${text}`
+        )
+    );
+  }
+
   return (
     <Container>
       <div className="flex flex-wrap justify-between">
-        <PageTitle>Liste des adhésions</PageTitle>
         <div>
-          <DateRangeFilter onFilter={onFilterDateRange} />
+          <PageTitle>Liste des adhésions</PageTitle>
+          <div className="btn-group">
+            <button className={`btn btn-link${searchType === "text" ? "" : " btn-disabled"}`} onClick={() => setSearchType("date")}><HiOutlineCalendar className="inline" /> Filtrer par date</button>
+            <button className={`btn btn-link${searchType === "date" ? "" : " btn-disabled"}`} onClick={() => setSearchType("text")}><HiSearch className="inline"/> Filtrer par texte</button>
+          </div>
+        </div>
+        <div>
+          {searchType === "text" &&
+            <TextFilter onFilter={onFilterText} />
+          }
+          {searchType === "date" &&
+            <DateRangeFilter onFilter={onFilterDateRange} />
+          }
         </div>
       </div>
 
@@ -61,13 +85,12 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
         </Link>
       </p>
       {items.length === 0 && (
-        <p className="italic">Aucun résultat pour les dates sélectionnées</p>
+        <p className="italic">Aucun résultat pour les critères sélectionnés</p>
       )}
 
       {items.length > 0 && (
         <Table>
           <Head>
-            <HeadCell>id</HeadCell>
             <HeadCell>Numéro</HeadCell>
             <HeadCell>Prénom</HeadCell>
             <HeadCell>Nom</HeadCell>
@@ -86,13 +109,10 @@ const ListView = ({ error, loading, retrieved }: ListProps) => {
                   <Links
                     items={{
                       href: `/members/show/${encodeURIComponent(item["@id"])}`,
-                      name: item["@id"],
+                      name: item["num"] ? getFormattedMemberNum(item["num"].toString()) : '#',
                     }}
                   />
                 </HeadCell>
-                <Cell>
-                  {item["num"] && getFormattedMemberNum(item["num"].toString())}
-                </Cell>
                 <Cell>{item["firstname"]}</Cell>
                 <Cell>{item["lastname"]}</Cell>
                 <Cell>{item["email"]}</Cell>
